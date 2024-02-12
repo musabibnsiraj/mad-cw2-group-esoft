@@ -153,6 +153,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   ),
                 ],
               ),
+              const SizedBox(height: 15)
             ],
           ),
         ),
