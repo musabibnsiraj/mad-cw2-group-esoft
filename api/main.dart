@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:api/src/env/env.dart';
 import 'package:api/src/repositories/message_repository.dart';
+import 'package:api/src/repositories/user_repository.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:supabase/supabase.dart';
 
 late MessageRepository messageRepository;
+late UserRepository userRepository;
 
 Future<HttpServer> run(Handler handler, InternetAddress ip, int port) {
   final dbClient = SupabaseClient(
@@ -14,6 +16,7 @@ Future<HttpServer> run(Handler handler, InternetAddress ip, int port) {
   );
 
   messageRepository = MessageRepository(dbClient: dbClient);
+  userRepository = UserRepository(dbClient: dbClient);
 
   return serve(handler, ip, port);
 }

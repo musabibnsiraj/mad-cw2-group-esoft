@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:api/src/repositories/message_repository.dart';
+import 'package:api/src/repositories/user_repository.dart';
 import 'package:dart_frog/dart_frog.dart';
 
-FutureOr<Response> onRequest(RequestContext context, String chatRoomId) async {
+FutureOr<Response> onRequest(RequestContext context) async {
   switch (context.request.method) {
     case HttpMethod.get:
-      return _get(context, chatRoomId);
+      return _get(context);
     case HttpMethod.post:
     case HttpMethod.put:
     case HttpMethod.delete:
@@ -18,13 +18,13 @@ FutureOr<Response> onRequest(RequestContext context, String chatRoomId) async {
   // return Response(body: 'Welcome to Dart Frog!');
 }
 
-Future<Response> _get(RequestContext context, String chatRoomId) async {
+Future<Response> _get(RequestContext context) async {
   // Use the message repository.
-  final messageRepository = context.read<MessageRepository>();
+  final userRepository = context.read<UserRepository>();
 
   try {
-    final messages = await messageRepository.fetchMessages(chatRoomId);
-    return Response.json(body: {'messages': messages});
+    final users = await userRepository.fetchUsers();
+    return Response.json(body: {'users': users});
   } catch (err) {
     return Response.json(
       body: {'error': err.toString()},

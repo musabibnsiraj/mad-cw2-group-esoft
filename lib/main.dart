@@ -1,9 +1,9 @@
+import 'package:my_office_chat/repositories/user_repository.dart';
 import 'package:my_office_chat/screens/chats.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
 
 import 'repositories/message_repository.dart';
-import 'screens/chat_room_screen.dart';
 import 'services/api_client.dart';
 import 'services/web_socket_client.dart';
 import '../constant.dart';
@@ -16,6 +16,11 @@ final apiClient = ApiClient(tokenProvider: () async {
 final webSocketClient = WebSocketClient();
 
 final messageRepository = MessageRepository(
+  apiClient: apiClient,
+  webSocketClient: webSocketClient,
+);
+
+final userRepository = UserRepository(
   apiClient: apiClient,
   webSocketClient: webSocketClient,
 );

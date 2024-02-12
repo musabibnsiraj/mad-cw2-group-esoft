@@ -37,6 +37,14 @@ class ApiClient {
     return response;
   }
 
+  Future<Map<String, dynamic>> fetchUsers() async {
+    final uri = Uri.parse('$_baseUrl/users');
+
+    final response = await _handleRequest(
+        (headers) => _httpClient.get(uri, headers: headers));
+    return response;
+  }
+
   Future<Map<String, dynamic>> _handleRequest(
     Future<http.Response> Function(Map<String, String>) request,
   ) async {

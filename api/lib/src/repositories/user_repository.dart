@@ -5,19 +5,10 @@ class UserRepository {
 
   const UserRepository({required this.dbClient});
 
-  Future<Map<String, dynamic>> createMessage(Map<String, dynamic> data) async {
+  Future<List<Map<String, dynamic>>> fetchUsers() async {
     try {
-      return await dbClient.from('users').insert(data).select().single();
-    } catch (err) {
-      throw Exception(err);
-    }
-  }
-
-  Future<List<Map<String, dynamic>>> fetchMessages(String chatRoomId) async {
-    try {
-      final messages = await dbClient.from('users').select<PostgrestList>();
-
-      return messages;
+      final users = await dbClient.from('users').select<PostgrestList>();
+      return users;
     } catch (err) {
       throw Exception(err);
     }
