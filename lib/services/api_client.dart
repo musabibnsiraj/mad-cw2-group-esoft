@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
+import '../env/env.dart';
 import 'package:http/http.dart' as http;
 
 typedef TokenProvider = Future<String?> Function();
+final apiBaseUrl = Env.API_BASE_URL;
 
 class ApiClient {
   ApiClient({
     required TokenProvider tokenProvider,
     http.Client? httpClient,
   }) : this._(
-          baseUrl: 'http://192.168.8.170:8080',
+          baseUrl: 'http://$apiBaseUrl',
           tokenProvider: tokenProvider,
           httpClient: httpClient,
         );

@@ -4,6 +4,7 @@ import 'package:models/models.dart';
 import '../main.dart';
 import '../widgets/avatar.dart';
 import '../widgets/message_bubble.dart';
+import '../env/env.dart';
 
 class ChatRoomScreen extends StatefulWidget {
   const ChatRoomScreen({super.key, required this.chatRoom});
@@ -64,8 +65,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   }
 
   _startWebSocket() {
+    final apiBaseUrl = Env.API_BASE_URL;
     webSocketClient.connect(
-      'ws://192.168.8.170:8080/ws',
+      'ws://$apiBaseUrl/ws',
       {
         'Authorization': 'Bearer ....',
       },
