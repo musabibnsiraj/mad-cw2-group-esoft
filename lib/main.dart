@@ -5,6 +5,7 @@ import 'repositories/message_repository.dart';
 import 'screens/chat_room_screen.dart';
 import 'services/api_client.dart';
 import 'services/web_socket_client.dart';
+import '../constant.dart';
 
 final apiClient = ApiClient(tokenProvider: () async {
   // TODO: Get the bearer token of the current user.
@@ -30,8 +31,24 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Chat App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        unselectedWidgetColor: appWhite,
+        iconTheme: IconThemeData(color: appIconColor),
+        scaffoldBackgroundColor: appBgColor,
+        textTheme: const TextTheme().copyWith(
+          bodyMedium: TextStyle(color: appTextColor),
+          displayLarge: TextStyle(color: appTextColor),
+          displayMedium: TextStyle(color: appTextColor),
+          titleMedium: TextStyle(color: appTextColor),
+          titleSmall: TextStyle(color: appTextColor),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(color: appTextColor),
+          hintStyle: TextStyle(color: appTextColor),
+        ),
+        primaryColor: primaryAppColor,
+        colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: primaryColor, backgroundColor: primaryColor)
+            .copyWith(background: appBgColor),
       ),
       home: ChatRoomScreen(chatRoom: chatRoom),
     );

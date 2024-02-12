@@ -31,6 +31,7 @@ class ApiClient {
 
   Future<Map<String, dynamic>> fetchMessages(String chatRoomId) async {
     final uri = Uri.parse('$_baseUrl/chat-rooms/id/$chatRoomId/messages');
+
     final response = await _handleRequest(
         (headers) => _httpClient.get(uri, headers: headers));
     return response;
@@ -40,13 +41,11 @@ class ApiClient {
     Future<http.Response> Function(Map<String, String>) request,
   ) async {
     try {
-      print('-------------------Statrt 1-----------------');
+      print('-------------------  API call started  -----------------');
       final headers = await _getRequestHeaders();
-
-      print('-------------------Statrt 2-----------------');
       final response = await request(headers);
 
-      print('-------------------Statrt 3-----------------');
+      print('------------------- Response recieved -----------------');
       final body = jsonDecode(response.body);
 
       if (response.statusCode != HttpStatus.ok) {

@@ -1,3 +1,5 @@
+import 'package:chat_with_flutter_dart_frog_and_websockets/constant.dart';
+import 'package:chat_with_flutter_dart_frog_and_websockets/widgets/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
 
@@ -86,29 +88,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Column(
-          children: [
-            Avatar(
-              imageUrl: otherParticipant.avatarUrl,
-              radius: 18,
-            ),
-            // const SizedBox(height: 2.0),
-            Text(
-              otherParticipant.username,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.more_vert),
-          ),
-          const SizedBox(width: 8.0),
-        ],
-      ),
+      appBar: appBar(otherParticipant.username, elevation: 1),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(
@@ -131,14 +111,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
 
                     return Row(
                       mainAxisAlignment: (message.senderUserId != userId1)
-                          ? MainAxisAlignment.end
-                          : MainAxisAlignment.start,
+                          ? MainAxisAlignment.start
+                          : MainAxisAlignment.end,
                       children: [
-                        if (showImage && message.senderUserId == userId1)
-                          Avatar(
-                            imageUrl: otherParticipant.avatarUrl,
-                            radius: 12,
-                          ),
                         MessageBubble(message: message),
                         if (showImage && message.senderUserId != userId1)
                           Avatar(
@@ -152,14 +127,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               ),
               Row(
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      // TODO: Send an image
-                    },
-                    icon: Icon(Icons.attach_file),
-                  ),
                   Expanded(
                     child: TextFormField(
+                      style: TextStyle(color: appWhite),
                       controller: messageController,
                       decoration: InputDecoration(
                         filled: true,
