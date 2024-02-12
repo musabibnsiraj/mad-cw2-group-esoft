@@ -1,3 +1,4 @@
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../constant.dart';
 import 'package:flutter/material.dart';
 
@@ -15,4 +16,13 @@ AppBar appBar(String title, {List<Widget>? actionsWidget, double? elevation}) {
       backgroundColor: appBarBgColor,
       elevation: elevation ?? 0,
       actions: actionsWidget ?? []);
+}
+
+class Spinner extends StatelessWidget {
+  const Spinner({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: SpinKitCircle(color: appSpinColor));
+  }
 }

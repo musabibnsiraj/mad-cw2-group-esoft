@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="chat_with_flutter_dart_frog_and_websockets"
+        android:label="my_office_chat"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

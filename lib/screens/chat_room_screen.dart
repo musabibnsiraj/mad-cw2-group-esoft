@@ -1,5 +1,5 @@
-import 'package:chat_with_flutter_dart_frog_and_websockets/constant.dart';
-import 'package:chat_with_flutter_dart_frog_and_websockets/widgets/common_widget.dart';
+import 'package:my_office_chat/constant.dart';
+import 'package:my_office_chat/widgets/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
 
@@ -58,7 +58,6 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
 
   _loadMessages() async {
     final _messages = await messageRepository.fetchMessages(widget.chatRoom.id);
-
     _messages.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
     setState(() {
@@ -146,7 +145,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                           onPressed: () {
                             _sendMessage();
                           },
-                          icon: Icon(Icons.send),
+                          icon: const Icon(Icons.send),
                         ),
                       ),
                     ),

@@ -1,4 +1,4 @@
-name: chat_with_flutter_dart_frog_and_websockets
+name: my_office_chat
 description: A new Flutter project.
 publish_to: 'none' 
 version: 1.0.0+1
@@ -16,6 +16,9 @@ dependencies:
     path: packages/models
   http: ^1.1.0
   web_socket_channel: ^2.4.0
+  flutter_spinkit: ^5.2.0
+  fluttertoast: ^8.2.4
+  provider: ^6.1.1
   
 dev_dependencies:
   flutter_test:

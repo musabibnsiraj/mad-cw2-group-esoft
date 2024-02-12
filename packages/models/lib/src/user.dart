@@ -61,6 +61,15 @@ class User extends Equatable {
 
   @override
   List<Object?> get props => [id, username, phone, email, avatarUrl, status];
+
+  String? initials() {
+    var letter =
+        ((username.isNotEmpty == true ? username[0] : "")).toUpperCase();
+    if (letter.contains(RegExp('^[a-zA-Z]+'))) {
+      return letter;
+    }
+    return null;
+  }
 }
 
 

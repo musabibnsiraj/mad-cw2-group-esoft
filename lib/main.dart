@@ -1,3 +1,4 @@
+import 'package:my_office_chat/screens/chats.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Chat App',
+      title: 'My Office Chat',
       theme: ThemeData(
         unselectedWidgetColor: appWhite,
         iconTheme: IconThemeData(color: appIconColor),
@@ -50,7 +51,8 @@ class MyApp extends StatelessWidget {
                 primarySwatch: primaryColor, backgroundColor: primaryColor)
             .copyWith(background: appBgColor),
       ),
-      home: ChatRoomScreen(chatRoom: chatRoom),
+      debugShowCheckedModeBanner: false,
+      home: const ChatsScreen(),
     );
   }
 }
