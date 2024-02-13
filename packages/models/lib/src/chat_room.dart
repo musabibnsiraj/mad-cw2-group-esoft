@@ -4,26 +4,26 @@ import 'package:uuid/uuid.dart';
 
 class ChatRoom extends Equatable {
   final String id;
-  final List<User> participants;
+  final List<User> users;
   final Message lastMessage;
   final int unreadCount;
 
   const ChatRoom({
     required this.id,
-    required this.participants,
+    required this.users,
     required this.lastMessage,
     required this.unreadCount,
   });
 
   ChatRoom copyWith({
     String? id,
-    List<User>? participants,
+    List<User>? users,
     Message? lastMessage,
     int? unreadCount,
   }) {
     return ChatRoom(
       id: id ?? this.id,
-      participants: participants ?? this.participants,
+      users: users ?? this.users,
       lastMessage: lastMessage ?? this.lastMessage,
       unreadCount: unreadCount ?? this.unreadCount,
     );
@@ -32,10 +32,8 @@ class ChatRoom extends Equatable {
   factory ChatRoom.fromJson(Map<String, dynamic> json) {
     return ChatRoom(
       id: json['id'] ?? const Uuid().v4(),
-      participants: (json['participants'] is List)
-          ? json['participants']
-              .map<User>((user) => User.fromJson(user))
-              .toList()
+      users: (json['users'] is List)
+          ? json['users'].map<User>((user) => User.fromJson(user)).toList()
           : [],
       lastMessage: Message.fromJson(json['last_message'] ?? {}),
       unreadCount: json['unread_count'] ?? 0,
@@ -45,12 +43,12 @@ class ChatRoom extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'participants': participants,
+      'users': users,
       'lastMessage': lastMessage.toJson(),
       'unreadCount': unreadCount,
     };
   }
 
   @override
-  List<Object?> get props => [id, participants, lastMessage, unreadCount];
+  List<Object?> get props => [id, users, lastMessage, unreadCount];
 }

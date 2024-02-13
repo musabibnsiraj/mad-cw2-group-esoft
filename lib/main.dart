@@ -67,7 +67,7 @@ const userId2 = '2e1b90e6-1750-4be0-b7b6-df04c7e611b7';
 
 final chatRoom = ChatRoom(
   id: '8d162274-6cb8-4776-815a-8e721ebfb76d',
-  participants: const [
+  users: const [
     User(
       id: userId1,
       username: 'Musab',
