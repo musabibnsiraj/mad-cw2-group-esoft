@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:api/src/repositories/user_repository.dart';
+import 'package:api/src/repositories/chat_repository.dart';
 import 'package:dart_frog/dart_frog.dart';
 
 FutureOr<Response> onRequest(RequestContext context, String userId) async {
@@ -20,10 +20,10 @@ FutureOr<Response> onRequest(RequestContext context, String userId) async {
 
 Future<Response> _get(RequestContext context, String userId) async {
   // Use the message repository.
-  final userRepository = context.read<UserRepository>();
+  final chatRepository = context.read<ChatRepository>();
 
   try {
-    final chats = await userRepository.getChatRoomsWithUsers(userId);
+    final chats = await chatRepository.getChatRoomsWithUsers(userId);
     return Response.json(body: {'chats': chats});
   } catch (err) {
     return Response.json(

@@ -1,11 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:my_office_chat/widgets/user_input_widget.dart';
 
-import '../../constant.dart';
-// import '../../providers/user_provider.dart';
-import '../../widgets/common_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -20,6 +16,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
   bool loading = false;
   bool _isLoggedIn = false;
+
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   Future loginCheck(

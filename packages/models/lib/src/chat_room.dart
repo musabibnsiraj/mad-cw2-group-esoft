@@ -35,7 +35,7 @@ class ChatRoom extends Equatable {
       users: (json['users'] is List)
           ? json['users'].map<User>((user) => User.fromJson(user)).toList()
           : [],
-      lastMessage: Message.fromJson(json['last_message'] ?? {}),
+      lastMessage: Message.fromJson(json['messages'] ?? {}),
       unreadCount: json['unread_count'] ?? 0,
     );
   }

@@ -13,7 +13,7 @@ class ChatsScreen extends StatefulWidget {
 }
 
 class _ChatsScreenState extends State<ChatsScreen> {
-  List<User> allUsers = [];
+  List<ChatRoom> chatRooms = [];
   bool loading = false;
 
   @override
@@ -27,10 +27,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
   }
 
   _loadUsers() async {
-    final _users = await userRepository.fetchUsers();
+    final _chatRooms = await chatRepository.fetchChatsByUserId(logedUserId);
 
     setState(() {
-      allUsers.addAll(_users);
+      chatRooms.addAll(_chatRooms);
     });
   }
 
@@ -56,7 +56,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                   border: Border(bottom: BorderSide(color: appGrey)),
                 ),
               ),
-              if (!loading && allUsers.isEmpty)
+              if (!loading && chatRooms.isEmpty)
                 const Padding(
                   padding: EdgeInsets.only(top: 100.0),
                   child: Text('You don’t have any chats yet'),
@@ -65,34 +65,40 @@ class _ChatsScreenState extends State<ChatsScreen> {
                   child: Scrollbar(
                 thumbVisibility: true,
                 child: ListView.builder(
-                  itemCount: allUsers.length,
+                  itemCount: chatRooms.length,
                   itemBuilder: (ctx, i) {
-                    User participant = allUsers.elementAt(i);
-                    return SizedBox(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 8.0, bottom: 8.0, left: 4, right: 4),
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (_) {
-                              return ChatRoomScreen(
-                                  participantId: participant.id);
-                            }));
-                          },
-                          leading: CircleAvatar(
-                              backgroundColor: appGreen,
-                              child: Text(participant.initials() ?? "")),
-                          title: Text(
-                              "${participant.username} ${participant.email}",
-                              style: TextStyle(color: appTextColor)),
-                          subtitle: Text(
-                            participant.phone,
-                            style: TextStyle(color: appTextColor),
+                    ChatRoom chatRoom = chatRooms.elementAt(i);
+                    final participants = chatRoom.users;
+                    for (final participant in participants) {
+                      // Skip logged-in user
+                      if (participant.id != logedUserId) {
+                        return SizedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 8.0, bottom: 8.0, left: 4, right: 4),
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) {
+                                  return ChatRoomScreen(chatRoom: chatRoom);
+                                }));
+                              },
+                              leading: CircleAvatar(
+                                  backgroundColor: appGreen,
+                                  child: Text(participant.initials() ?? "")),
+                              title: Text(
+                                  "${participant.username} ${participant.email}",
+                                  style: TextStyle(color: appTextColor)),
+                              subtitle: Text(
+                                participant.phone,
+                                style: TextStyle(color: appTextColor),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    );
+                        );
+                      }
+                    }
+                    return null;
                   },
                 ),
               ))
