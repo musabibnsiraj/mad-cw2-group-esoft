@@ -8,6 +8,7 @@ class User extends Equatable {
   final String email;
   final String avatarUrl;
   final String status;
+  final String password;
 
   const User({
     required this.id,
@@ -16,16 +17,19 @@ class User extends Equatable {
     required this.email,
     required this.avatarUrl,
     required this.status,
+    required this.password,
   });
 
-  User copyWith({
-    String? id,
-    String? username,
-    String? phone,
-    String? email,
-    String? avatarUrl,
-    String? status,
-  }) {
+  // get password => null;
+
+  User copyWith(
+      {String? id,
+      String? username,
+      String? phone,
+      String? email,
+      String? avatarUrl,
+      String? status,
+      String? password}) {
     return User(
       id: id ?? this.id,
       username: username ?? this.username,
@@ -33,6 +37,7 @@ class User extends Equatable {
       email: email ?? this.email,
       avatarUrl: avatarUrl ?? this.avatarUrl,
       status: status ?? this.status,
+      password: password ?? this.password,
     );
   }
 
@@ -45,6 +50,7 @@ class User extends Equatable {
       avatarUrl:
           json['avatar_url'] ?? 'https://source.unsplash.com/random/?profile',
       status: json['status'] ?? '',
+      password: json['password'] ?? '',
     );
   }
 
@@ -56,6 +62,7 @@ class User extends Equatable {
       'email': email,
       'avatarUrl': avatarUrl,
       'status': status,
+      'password': password,
     };
   }
 

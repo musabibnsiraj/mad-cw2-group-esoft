@@ -66,9 +66,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   }
 
   _startWebSocket() {
-    final apiBaseUrl = Env.API_BASE_URL;
+    // final apiBaseUrl = Env.API_BASE_URL;
     webSocketClient.connect(
-      'ws://$apiBaseUrl/ws',
+      'ws://192.168.1.3:8080/ws',
       {
         'Authorization': 'Bearer ....',
       },

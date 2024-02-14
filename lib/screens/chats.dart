@@ -4,6 +4,7 @@ import 'package:models/models.dart';
 import '../../widgets/common_widget.dart';
 import 'package:flutter/material.dart';
 import '../constant.dart';
+import 'login_screen.dart';
 
 class ChatsScreen extends StatefulWidget {
   const ChatsScreen({Key? key}) : super(key: key);
@@ -26,16 +27,17 @@ class _ChatsScreenState extends State<ChatsScreen> {
         email: 'musab@gmail.com',
         avatarUrl: 'https://avatars.githubusercontent.com/u/47845204?v=4',
         status: 'online',
+        password: '123',
       ),
       User(
-        id: 'df7a1235-d004-4b2b-8406-369c6ecfb050',
-        username: 'Arsath',
-        phone: '0755555555',
-        email: 'arsath@gmail.com',
-        avatarUrl:
-            'https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg',
-        status: 'online',
-      ),
+          id: 'df7a1235-d004-4b2b-8406-369c6ecfb050',
+          username: 'Arsath',
+          phone: '0755555555',
+          email: 'arsath@gmail.com',
+          avatarUrl:
+              'https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg',
+          status: 'online',
+          password: 'password'),
     ],
     lastMessage: Message(
       id: 'de120f3a-dbca-4330-9e2e-18b55a2fb9e5',
@@ -69,7 +71,17 @@ class _ChatsScreenState extends State<ChatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar('My Office Chat', elevation: 0.1),
+      appBar: AppBar(
+        title: Text('My Office Chat'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              _logout();
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
           child: Stack(
         children: [
@@ -131,6 +143,16 @@ class _ChatsScreenState extends State<ChatsScreen> {
           if (loading) const Spinner()
         ],
       )),
+    );
+  }
+
+  void _logout() {
+    // Perform logout logic here
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginScreen(userRepository: userRepository),
+      ),
     );
   }
 }
