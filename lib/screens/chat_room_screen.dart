@@ -157,7 +157,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                           onPressed: () {
                             _sendMessage();
                           },
-                          icon: const Icon(Icons.send),
+                          icon: Icon(
+                            Icons.send,
+                            color: appWhite,
+                          ),
                         ),
                       ),
                     ),
