@@ -5,6 +5,7 @@ import 'package:my_office_chat/screens/contact_screen.dart';
 import '../../widgets/common_widget.dart';
 import 'package:flutter/material.dart';
 import '../constant.dart';
+import 'login_screen.dart';
 
 class ChatsScreen extends StatefulWidget {
   const ChatsScreen({Key? key}) : super(key: key);
@@ -38,7 +39,17 @@ class _ChatsScreenState extends State<ChatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar('My Office', elevation: 0.1),
+      appBar: AppBar(
+        title: const Text('My Office'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              _logout();
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
           child: Stack(
         children: [
@@ -119,6 +130,16 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
       // floatingActionButtonLocation:
       //     FloatingActionButtonLocation.miniStartDocked,
+    );
+  }
+
+  void _logout() {
+    // Perform logout logic here
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginScreen(userRepository: userRepository),
+      ),
     );
   }
 }

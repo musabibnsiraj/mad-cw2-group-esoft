@@ -2,10 +2,12 @@ import 'package:my_office_chat/repositories/chat_repository.dart';
 import 'package:my_office_chat/repositories/user_repository.dart';
 import 'package:my_office_chat/screens/chats.dart';
 import 'package:flutter/material.dart';
+import 'package:my_office_chat/screens/login_screen.dart';
 import 'repositories/message_repository.dart';
 import 'services/api_client.dart';
 import 'services/web_socket_client.dart';
 import '../constant.dart';
+import 'package:supabase/supabase.dart';
 
 final apiClient = ApiClient(tokenProvider: () async {
   // TODO: Get the bearer token of the current user.
@@ -20,6 +22,11 @@ final webSocketClient = WebSocketClient();
 final messageRepository = MessageRepository(
   apiClient: apiClient,
   webSocketClient: webSocketClient,
+);
+
+final supabaseClient = SupabaseClient(
+  'https://fklsmosyjsilrovygvij.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZrbHNtb3N5anNpbHJvdnlndmlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc2Nzg1NDcsImV4cCI6MjAyMzI1NDU0N30.7hPQ4qSf_SHw2Q3a0qbQQopjWUNMWMQNZTFcbfFfPcY',
 );
 
 final userRepository = UserRepository(
@@ -42,8 +49,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Office Chat',
+      title: 'My Office',
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          backgroundColor:
+              Color.fromARGB(255, 3, 109, 72), // Change to your desired color
+        ),
         unselectedWidgetColor: appWhite,
         iconTheme: IconThemeData(color: appIconColor),
         scaffoldBackgroundColor: appBgColor,
@@ -64,7 +75,10 @@ class MyApp extends StatelessWidget {
             .copyWith(background: appBgColor),
       ),
       debugShowCheckedModeBanner: false,
-      home: const ChatsScreen(),
+      home: LoginScreen(userRepository: userRepository),
+      routes: {
+        '/chats': (context) => const ChatsScreen(),
+      },
     );
   }
 }
