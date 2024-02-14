@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_office_chat/repositories/user_repository.dart';
 import 'package:my_office_chat/screens/chats.dart';
 import 'package:models/models.dart';
-import 'package:my_office_chat/widgets/common_widget.dart'; // Import your User model
+import 'package:my_office_chat/widgets/common_widget.dart';
+import 'package:supabase/supabase.dart'; // Import your User model
 
 class LoginScreen extends StatefulWidget {
   final UserRepository userRepository;
@@ -19,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   final UserRepository userRepository;
-  late List<User> users;
+  late List<User2> users;
   bool isLoading = false;
 
   _LoginScreenState({required this.userRepository});
@@ -35,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             const SizedBox(height: 20),
             TextField(
+              style: TextStyle(color: Colors.white),
               controller: _emailController,
               decoration: const InputDecoration(
                 labelText: 'Email',
@@ -42,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             const SizedBox(height: 20),
             TextField(
+              style: TextStyle(color: Colors.white),
               controller: _passwordController,
               decoration: const InputDecoration(
                 labelText: 'Password',
@@ -69,14 +72,11 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      users = await userRepository.fetchUsers();
-
       final String enteredEmail = _emailController.text;
       final String enteredPassword = _passwordController.text;
 
-      final User user = users.firstWhere((user) =>
-          user.email.trim().toLowerCase() == enteredEmail.toLowerCase() &&
-          user.password == enteredPassword);
+      AuthResponse response =
+          await userRepository.signInWithEmail(enteredEmail, enteredPassword);
 
       Navigator.pushReplacement(
         context,

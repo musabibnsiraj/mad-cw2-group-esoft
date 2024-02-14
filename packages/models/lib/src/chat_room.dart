@@ -4,7 +4,7 @@ import 'package:uuid/uuid.dart';
 
 class ChatRoom extends Equatable {
   final String id;
-  final List<User> users;
+  final List<User2> users;
   final Message lastMessage;
   final int unreadCount;
 
@@ -17,7 +17,7 @@ class ChatRoom extends Equatable {
 
   ChatRoom copyWith({
     String? id,
-    List<User>? users,
+    List<User2>? users,
     Message? lastMessage,
     int? unreadCount,
   }) {
@@ -33,7 +33,7 @@ class ChatRoom extends Equatable {
     return ChatRoom(
       id: json['id'] ?? const Uuid().v4(),
       users: (json['users'] is List)
-          ? json['users'].map<User>((user) => User.fromJson(user)).toList()
+          ? json['users'].map<User2>((user) => User2.fromJson(user)).toList()
           : [],
       lastMessage: Message.fromJson(json['messages'] ?? {}),
       unreadCount: json['unread_count'] ?? 0,

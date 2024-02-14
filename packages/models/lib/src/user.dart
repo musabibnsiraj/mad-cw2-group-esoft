@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
-class User extends Equatable {
+class User2 extends Equatable {
   final String id;
   final String username;
   final String phone;
@@ -10,7 +10,7 @@ class User extends Equatable {
   final String status;
   final String password;
 
-  const User({
+  const User2({
     required this.id,
     required this.username,
     required this.phone,
@@ -22,7 +22,7 @@ class User extends Equatable {
 
   // get password => null;
 
-  User copyWith(
+  User2 copyWith(
       {String? id,
       String? username,
       String? phone,
@@ -30,7 +30,7 @@ class User extends Equatable {
       String? avatarUrl,
       String? status,
       String? password}) {
-    return User(
+    return User2(
       id: id ?? this.id,
       username: username ?? this.username,
       phone: phone ?? this.phone,
@@ -41,8 +41,8 @@ class User extends Equatable {
     );
   }
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory User2.fromJson(Map<String, dynamic> json) {
+    return User2(
       id: json['id'] ?? const Uuid().v4(),
       username: json['username'] ?? '',
       phone: json['phone'] ?? '',
