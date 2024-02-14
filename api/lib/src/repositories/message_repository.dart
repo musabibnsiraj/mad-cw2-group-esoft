@@ -7,10 +7,6 @@ class MessageRepository {
 
   Future<Map<String, dynamic>> createMessage(Map<String, dynamic> data) async {
     try {
-      print('------------------------------------------');
-      print(data);
-      print('-------------+++++++++++++++++++++++--------------');
-
       return await dbClient.from('messages').insert(data).select().single();
     } catch (err) {
       throw Exception(err);
