@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:envied/envied.dart';
 
 part 'env.g.dart';

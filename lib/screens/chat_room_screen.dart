@@ -1,7 +1,10 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:my_office_chat/constant.dart';
 import 'package:my_office_chat/widgets/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../env/env.dart';
 import '../main.dart';
 import '../widgets/avatar.dart';
@@ -19,9 +22,11 @@ class ChatRoomScreen extends StatefulWidget {
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
   final messageController = TextEditingController();
   final List<Message> messages = [];
+  String logedUserId = '';
 
   @override
   void initState() {
+    _init();
     _loadMessages();
     _startWebSocket();
 
@@ -34,6 +39,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       }
     });
     super.initState();
+  }
+
+  _init() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userId = prefs.getString('userId') ?? '';
+    setState(() => logedUserId = userId);
   }
 
   @override
@@ -112,7 +123,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                             ? MainAxisAlignment.start
                             : MainAxisAlignment.end,
                         children: [
-                          MessageBubble(message: message),
+                          MessageBubble(
+                            message: message,
+                            logedUserId: logedUserId,
+                          ),
                           if (showImage && message.senderUserId != logedUserId)
                             Avatar(
                               imageUrl: otherParticipant.avatarUrl,

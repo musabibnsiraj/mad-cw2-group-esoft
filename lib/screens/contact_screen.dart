@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:my_office_chat/main.dart';
 import 'package:models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:my_office_chat/screens/chat_room_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/common_widget.dart';
 import '../constant.dart';
 
@@ -15,6 +18,7 @@ class ContactScreen extends StatefulWidget {
 class _ContactScreenState extends State<ContactScreen> {
   List<User2> allUsers = [];
   bool loading = false;
+  String logedUserId = '';
 
   @override
   void initState() {
@@ -23,6 +27,9 @@ class _ContactScreenState extends State<ContactScreen> {
   }
 
   init() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userId = prefs.getString('userId') ?? '';
+    setState(() => logedUserId = userId);
     await _loadUsers();
   }
 
@@ -35,7 +42,7 @@ class _ContactScreenState extends State<ContactScreen> {
     });
   }
 
-  _go_to_chat_screen(String contactUserId) async {
+  goToChatScreen(String contactUserId) async {
     ChatRoom chatRoom =
         await chatRepository.openChatRoom(logedUserId, contactUserId);
 
@@ -84,7 +91,7 @@ class _ContactScreenState extends State<ContactScreen> {
                               top: 8.0, bottom: 8.0, left: 4, right: 4),
                           child: ListTile(
                             onTap: () async {
-                              await _go_to_chat_screen(userId);
+                              await goToChatScreen(userId);
                             },
                             leading: CircleAvatar(
                                 backgroundColor: appGreen,

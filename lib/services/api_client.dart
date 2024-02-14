@@ -66,11 +66,8 @@ class ApiClient {
     Future<http.Response> Function(Map<String, String>) request,
   ) async {
     try {
-      print('-------------------  Request Sent  -----------------');
       final headers = await _getRequestHeaders();
       final response = await request(headers);
-
-      print('------------------- Response Recieved -----------------');
       final body = jsonDecode(response.body);
 
       if (response.statusCode != HttpStatus.ok) {

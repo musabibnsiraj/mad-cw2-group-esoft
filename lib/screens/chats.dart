@@ -2,6 +2,7 @@ import 'package:my_office_chat/main.dart';
 import 'package:my_office_chat/screens/chat_room_screen.dart';
 import 'package:models/models.dart';
 import 'package:my_office_chat/screens/contact_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/common_widget.dart';
 import 'package:flutter/material.dart';
 import '../constant.dart';
@@ -17,6 +18,7 @@ class ChatsScreen extends StatefulWidget {
 class _ChatsScreenState extends State<ChatsScreen> {
   List<ChatRoom> chatRooms = [];
   bool loading = false;
+  String logedUserId = '';
 
   @override
   void initState() {
@@ -25,6 +27,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
   }
 
   init() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userId = prefs.getString('userId') ?? '';
+    setState(() => logedUserId = userId);
+
     await _loadChats();
   }
 

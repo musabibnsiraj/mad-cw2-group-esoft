@@ -39,7 +39,7 @@ class UserRepository {
 
   Future<void> deleteUser(String id) async {
     try {
-      await dbClient.from('users').delete().eq('id', id).execute();
+      await dbClient.from('users').delete().eq('id', id);
     } catch (err) {
       throw Exception(err);
     }

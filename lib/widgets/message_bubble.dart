@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
 
-import '../main.dart';
-
+// ignore: must_be_immutable
 class MessageBubble extends StatelessWidget {
-  const MessageBubble({
-    super.key,
-    required this.message,
-  });
+  const MessageBubble(
+      {super.key, required this.message, required this.logedUserId});
 
   final Message message;
+  final String logedUserId;
 
   @override
   Widget build(BuildContext context) {

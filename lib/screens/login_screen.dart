@@ -1,9 +1,10 @@
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, no_logic_in_create_state, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:my_office_chat/repositories/user_repository.dart';
 import 'package:my_office_chat/screens/chats.dart';
 import 'package:models/models.dart';
 import 'package:my_office_chat/widgets/common_widget.dart';
-import 'package:supabase/supabase.dart'; // Import your User model
 
 class LoginScreen extends StatefulWidget {
   final UserRepository userRepository;
@@ -75,8 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
       final String enteredEmail = _emailController.text;
       final String enteredPassword = _passwordController.text;
 
-      AuthResponse response =
-          await userRepository.signInWithEmail(enteredEmail, enteredPassword);
+      await userRepository.signInWithEmail(enteredEmail, enteredPassword);
 
       Navigator.pushReplacement(
         context,

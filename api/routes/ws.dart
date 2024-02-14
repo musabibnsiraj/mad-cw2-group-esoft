@@ -4,8 +4,6 @@ import 'package:api/src/repositories/message_repository.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:dart_frog_web_socket/dart_frog_web_socket.dart';
 
-import '../main.dart';
-
 Future<Response> onRequest(RequestContext context) async {
   final messageRepository = context.read<MessageRepository>();
   final handler = webSocketHandler((channel, protocol) {
