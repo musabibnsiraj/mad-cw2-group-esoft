@@ -13,7 +13,7 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
-  List<User> allUsers = [];
+  List<User2> allUsers = [];
   bool loading = false;
 
   @override
@@ -70,7 +70,7 @@ class _ContactScreenState extends State<ContactScreen> {
                 child: ListView.builder(
                   itemCount: allUsers.length,
                   itemBuilder: (ctx, i) {
-                    User participant = allUsers.elementAt(i);
+                    User2 participant = allUsers.elementAt(i);
                     final userId = participant.id;
                     var username = participant.username;
                     var participantPhone = participant.phone;
