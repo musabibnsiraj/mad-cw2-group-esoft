@@ -2,7 +2,7 @@ import 'package:my_office_chat/constant.dart';
 import 'package:my_office_chat/widgets/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
-
+import '../env/env.dart';
 import '../main.dart';
 import '../widgets/avatar.dart';
 import '../widgets/message_bubble.dart';
@@ -65,9 +65,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   }
 
   _startWebSocket() {
-    // final apiBaseUrl = Env.API_BASE_URL;
+    final apiBaseUrl = Env.API_BASE_URL;
     webSocketClient.connect(
-      'ws://192.168.1.3:8080/ws',
+      'ws://$apiBaseUrl/ws',
       {
         'Authorization': 'Bearer ....',
       },

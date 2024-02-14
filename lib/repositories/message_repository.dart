@@ -18,6 +18,9 @@ class MessageRepository {
 
   Future<void> createMessage(Message message) async {
     var payload = {'event': 'message.create', 'data': message.toJson()};
+    print('-----------------payload-------------------------');
+    print(payload);
+    print('-------------+++++++++payload++++++++++++++--------------');
     webSocketClient.send(jsonEncode(payload));
   }
 
