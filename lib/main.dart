@@ -1,3 +1,4 @@
+import 'package:my_office_chat/repositories/chat_repository.dart';
 import 'package:my_office_chat/repositories/user_repository.dart';
 import 'package:my_office_chat/screens/chats.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,9 @@ final apiClient = ApiClient(tokenProvider: () async {
   return '';
 });
 
+//TODO:
+const logedUserId = '2e1b90e6-1750-4be0-b7b6-df04c7e611b7';
+
 final webSocketClient = WebSocketClient();
 
 final messageRepository = MessageRepository(
@@ -27,6 +31,11 @@ final supabaseClient = SupabaseClient(
 );
 
 final userRepository = UserRepository(
+  apiClient: apiClient,
+  webSocketClient: webSocketClient,
+);
+
+final chatRepository = ChatRepository(
   apiClient: apiClient,
   webSocketClient: webSocketClient,
 );
@@ -74,38 +83,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-const userId1 = 'df7a1235-d004-4b2b-8406-369c6ecfb050';
-const userId2 = '2e1b90e6-1750-4be0-b7b6-df04c7e611b7';
-
-// final chatRoom = ChatRoom(
-//   id: '8d162274-6cb8-4776-815a-8e721ebfb76d',
-//   participants: const [
-//     User(
-//       id: userId1,
-//       username: 'Musab',
-//       phone: '0755513162',
-//       email: 'musab@gmail.com',
-//       avatarUrl: 'https://avatars.githubusercontent.com/u/47845204?v=4',
-//       status: 'online',
-//     ),
-//     User(
-//       id: userId2,
-//       username: 'Arsath',
-//       phone: '0755555555',
-//       email: 'arsath@gmail.com',
-//       avatarUrl:
-//           'https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg',
-//       status: 'online',
-//     ),
-//   ],
-//   lastMessage: Message(
-//     id: 'de120f3a-dbca-4330-9e2e-18b55a2fb9e5',
-//     chatRoomId: '8d162274-6cb8-4776-815a-8e721ebfb76d',
-//     senderUserId: userId1,
-//     receiverUserId: userId2,
-//     content: 'Hi',
-//     createdAt: DateTime(2023, 12, 1, 1, 0, 0),
-//   ),
-//   unreadCount: 0,
-// );

@@ -46,8 +46,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   void _sendMessage() async {
     final message = Message(
       chatRoomId: widget.chatRoom.id,
-      senderUserId: userId1,
-      receiverUserId: userId2,
+      senderUserId: logedUserId,
+      receiverUserId: logedUserId,
       content: messageController.text,
       createdAt: DateTime.now(),
     );
@@ -78,11 +78,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   @override
   Widget build(BuildContext context) {
     final viewInsets = MediaQuery.viewInsetsOf(context);
-    final currentParticipant = widget.chatRoom.participants.firstWhere(
-      (user) => user.id == userId1,
+    final currentParticipant = widget.chatRoom.users.firstWhere(
+      (user) => user.id == logedUserId,
     );
 
-    final otherParticipant = widget.chatRoom.participants.firstWhere(
+    final otherParticipant = widget.chatRoom.users.firstWhere(
       (user) => user.id != currentParticipant.id,
     );
 
@@ -109,12 +109,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                             message.senderUserId;
 
                     return Row(
-                      mainAxisAlignment: (message.senderUserId != userId1)
+                      mainAxisAlignment: (message.senderUserId != logedUserId)
                           ? MainAxisAlignment.start
                           : MainAxisAlignment.end,
                       children: [
                         MessageBubble(message: message),
-                        if (showImage && message.senderUserId != userId1)
+                        if (showImage && message.senderUserId != logedUserId)
                           Avatar(
                             imageUrl: otherParticipant.avatarUrl,
                             radius: 12,

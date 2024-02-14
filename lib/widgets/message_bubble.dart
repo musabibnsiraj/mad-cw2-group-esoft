@@ -15,15 +15,15 @@ class MessageBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    final alignment = (message.senderUserId != userId1)
+    final alignment = (message.senderUserId != logedUserId)
         ? Alignment.centerRight
         : Alignment.centerLeft;
 
-    final color = (message.senderUserId == userId1)
+    final color = (message.senderUserId == logedUserId)
         ? Theme.of(context).colorScheme.primary
         : Theme.of(context).colorScheme.secondary;
 
-    final textColor = (message.senderUserId == userId1)
+    final textColor = (message.senderUserId == logedUserId)
         ? Theme.of(context).colorScheme.onPrimary
         : Theme.of(context).colorScheme.onSecondary;
 

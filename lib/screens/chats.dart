@@ -14,41 +14,8 @@ class ChatsScreen extends StatefulWidget {
 }
 
 class _ChatsScreenState extends State<ChatsScreen> {
-  List<User> allUsers = [];
+  List<ChatRoom> chatRooms = [];
   bool loading = false;
-
-  final chatRoom = ChatRoom(
-    id: '8d162274-6cb8-4776-815a-8e721ebfb76d',
-    participants: const [
-      User(
-        id: '2e1b90e6-1750-4be0-b7b6-df04c7e611b7',
-        username: 'Musab',
-        phone: '0755513162',
-        email: 'musab@gmail.com',
-        avatarUrl: 'https://avatars.githubusercontent.com/u/47845204?v=4',
-        status: 'online',
-        password: '123',
-      ),
-      User(
-          id: 'df7a1235-d004-4b2b-8406-369c6ecfb050',
-          username: 'Arsath',
-          phone: '0755555555',
-          email: 'arsath@gmail.com',
-          avatarUrl:
-              'https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg',
-          status: 'online',
-          password: 'password'),
-    ],
-    lastMessage: Message(
-      id: 'de120f3a-dbca-4330-9e2e-18b55a2fb9e5',
-      chatRoomId: '8d162274-6cb8-4776-815a-8e721ebfb76d',
-      senderUserId: '2e1b90e6-1750-4be0-b7b6-df04c7e611b7',
-      receiverUserId: 'df7a1235-d004-4b2b-8406-369c6ecfb050',
-      content: 'Hi',
-      createdAt: DateTime(2023, 12, 1, 1, 0, 0),
-    ),
-    unreadCount: 0,
-  );
 
   @override
   void initState() {
@@ -61,10 +28,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
   }
 
   _loadUsers() async {
-    final _users = await userRepository.fetchUsers();
+    final _chatRooms = await chatRepository.fetchChatsByUserId(logedUserId);
 
     setState(() {
-      allUsers.addAll(_users);
+      chatRooms.addAll(_chatRooms);
     });
   }
 
@@ -100,7 +67,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                   border: Border(bottom: BorderSide(color: appGrey)),
                 ),
               ),
-              if (!loading && allUsers.isEmpty)
+              if (!loading && chatRooms.isEmpty)
                 const Padding(
                   padding: EdgeInsets.only(top: 100.0),
                   child: Text('You don’t have any chats yet'),
@@ -109,32 +76,40 @@ class _ChatsScreenState extends State<ChatsScreen> {
                   child: Scrollbar(
                 thumbVisibility: true,
                 child: ListView.builder(
-                  itemCount: allUsers.length,
+                  itemCount: chatRooms.length,
                   itemBuilder: (ctx, i) {
-                    User c = allUsers.elementAt(i);
-                    return SizedBox(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 8.0, bottom: 8.0, left: 4, right: 4),
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (_) {
-                              return ChatRoomScreen(chatRoom: chatRoom);
-                            }));
-                          },
-                          leading: CircleAvatar(
-                              backgroundColor: appGreen,
-                              child: Text(c.initials() ?? "")),
-                          title: Text("${c.username} ${c.email}",
-                              style: TextStyle(color: appTextColor)),
-                          subtitle: Text(
-                            c.phone,
-                            style: TextStyle(color: appTextColor),
+                    ChatRoom chatRoom = chatRooms.elementAt(i);
+                    final participants = chatRoom.users;
+                    for (final participant in participants) {
+                      // Skip logged-in user
+                      if (participant.id != logedUserId) {
+                        return SizedBox(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 8.0, bottom: 8.0, left: 4, right: 4),
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) {
+                                  return ChatRoomScreen(chatRoom: chatRoom);
+                                }));
+                              },
+                              leading: CircleAvatar(
+                                  backgroundColor: appGreen,
+                                  child: Text(participant.initials() ?? "")),
+                              title: Text(
+                                  "${participant.username} ${participant.email}",
+                                  style: TextStyle(color: appTextColor)),
+                              subtitle: Text(
+                                participant.phone,
+                                style: TextStyle(color: appTextColor),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    );
+                        );
+                      }
+                    }
+                    return null;
                   },
                 ),
               ))
