@@ -35,4 +35,22 @@ class ChatRepository {
       throw Exception(err.toString());
     }
   }
+
+  Future<bool> checkChatRoomExistence(
+      String loggedUserId, String contactUserId) async {
+    try {
+      final response = await dbClient
+          .from('chat_room_participants')
+          .select('chat_room_id')
+          .in_('participant_id', [loggedUserId, contactUserId]);
+
+      if (response.error != null) {
+        throw Exception(response.error!.message);
+      }
+
+      return (response.data as List).isNotEmpty;
+    } catch (err) {
+      throw Exception(err.toString());
+    }
+  }
 }

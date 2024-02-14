@@ -49,13 +49,6 @@ class _ContactScreenState extends State<ContactScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                padding: const EdgeInsets.only(left: 10),
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: appGrey)),
-                ),
-              ),
               if (!loading && allUsers.isEmpty)
                 const Padding(
                   padding: EdgeInsets.only(top: 100.0),
