@@ -2,8 +2,6 @@ import 'package:my_office_chat/repositories/chat_repository.dart';
 import 'package:my_office_chat/repositories/user_repository.dart';
 import 'package:my_office_chat/screens/chats.dart';
 import 'package:flutter/material.dart';
-import 'package:models/models.dart';
-
 import 'repositories/message_repository.dart';
 import 'services/api_client.dart';
 import 'services/web_socket_client.dart';

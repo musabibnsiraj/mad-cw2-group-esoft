@@ -13,6 +13,9 @@ AppBar appBar(String title, {List<Widget>? actionsWidget, double? elevation}) {
           fontWeight: FontWeight.w700,
         ),
       ),
+      iconTheme: IconThemeData(
+        color: appBarText, // Set your desired color here
+      ),
       backgroundColor: appBarBgColor,
       elevation: elevation ?? 0,
       actions: actionsWidget ?? []);

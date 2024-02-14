@@ -57,11 +57,11 @@ class ApiClient {
     Future<http.Response> Function(Map<String, String>) request,
   ) async {
     try {
-      print('-------------------  API call started  -----------------');
+      print('-------------------  Request Sent  -----------------');
       final headers = await _getRequestHeaders();
       final response = await request(headers);
 
-      print('------------------- Response recieved -----------------');
+      print('------------------- Response Recieved -----------------');
       final body = jsonDecode(response.body);
 
       if (response.statusCode != HttpStatus.ok) {
@@ -70,10 +70,8 @@ class ApiClient {
 
       return body;
     } on TimeoutException {
-      print('-------------------Here 2-----------------');
       throw Exception('Request timeout. Please try again');
     } catch (err) {
-      print('-------------------Here-----------------');
       throw Exception('Unexpected error: $err');
     }
   }

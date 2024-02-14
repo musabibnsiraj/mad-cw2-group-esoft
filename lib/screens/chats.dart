@@ -1,6 +1,7 @@
 import 'package:my_office_chat/main.dart';
 import 'package:my_office_chat/screens/chat_room_screen.dart';
 import 'package:models/models.dart';
+import 'package:my_office_chat/screens/contact_screen.dart';
 import '../../widgets/common_widget.dart';
 import 'package:flutter/material.dart';
 import '../constant.dart';
@@ -23,21 +24,21 @@ class _ChatsScreenState extends State<ChatsScreen> {
   }
 
   init() async {
-    await _loadUsers();
+    await _loadChats();
   }
 
-  _loadUsers() async {
-    final _chatRooms = await chatRepository.fetchChatsByUserId(logedUserId);
+  _loadChats() async {
+    final chats = await chatRepository.fetchChatsByUserId(logedUserId);
 
     setState(() {
-      chatRooms.addAll(_chatRooms);
+      chatRooms.addAll(chats);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar('My Office Chat', elevation: 0.1),
+      appBar: appBar('My Office', elevation: 0.1),
       body: SafeArea(
           child: Stack(
         children: [
@@ -86,8 +87,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                               leading: CircleAvatar(
                                   backgroundColor: appGreen,
                                   child: Text(participant.initials() ?? "")),
-                              title: Text(
-                                  "${participant.username} ${participant.email}",
+                              title: Text(participant.username,
                                   style: TextStyle(color: appTextColor)),
                               subtitle: Text(
                                 participant.phone,
@@ -107,6 +107,18 @@ class _ChatsScreenState extends State<ChatsScreen> {
           if (loading) const Spinner()
         ],
       )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return const ContactScreen();
+          }));
+        },
+        backgroundColor: primaryColor,
+        child: const Icon(Icons.message), // Customize button color
+      ),
+
+      // floatingActionButtonLocation:
+      //     FloatingActionButtonLocation.miniStartDocked,
     );
   }
 }

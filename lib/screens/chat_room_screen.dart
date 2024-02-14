@@ -100,29 +100,28 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             children: [
               Expanded(
                 child: ListView.builder(
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    final message = messages[index];
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      final message = messages[index];
 
-                    final showImage = index + 1 == messages.length ||
-                        messages[index + 1].senderUserId !=
-                            message.senderUserId;
+                      final showImage = index + 1 == messages.length ||
+                          messages[index + 1].senderUserId !=
+                              message.senderUserId;
 
-                    return Row(
-                      mainAxisAlignment: (message.senderUserId != logedUserId)
-                          ? MainAxisAlignment.start
-                          : MainAxisAlignment.end,
-                      children: [
-                        MessageBubble(message: message),
-                        if (showImage && message.senderUserId != logedUserId)
-                          Avatar(
-                            imageUrl: otherParticipant.avatarUrl,
-                            radius: 12,
-                          ),
-                      ],
-                    );
-                  },
-                ),
+                      return Row(
+                        mainAxisAlignment: (message.senderUserId != logedUserId)
+                            ? MainAxisAlignment.start
+                            : MainAxisAlignment.end,
+                        children: [
+                          MessageBubble(message: message),
+                          if (showImage && message.senderUserId != logedUserId)
+                            Avatar(
+                              imageUrl: otherParticipant.avatarUrl,
+                              radius: 12,
+                            ),
+                        ],
+                      );
+                    }),
               ),
               Row(
                 children: [
