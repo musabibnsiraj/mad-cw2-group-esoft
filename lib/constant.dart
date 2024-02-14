@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //App colors
 Color appWhite = Colors.white;
 Color appBarText = Colors.white;
-Color appBarBgColor = Colors.transparent;
+
 Color appBlack = Colors.black;
 Color appGrey = Colors.grey;
 Color appRed = Colors.red;
@@ -27,6 +27,8 @@ MaterialColor primaryColor = const MaterialColor(0xFF10A071, <int, Color>{
   800: Color(0xFF185B4E),
   900: Color(0xFF0F483B),
 });
+
+Color appBarBgColor = primaryColor;
 
 Color appSpinColor = Colors.white;
 Color primaryAppColor = const Color.fromRGBO(10, 160, 113, 1);

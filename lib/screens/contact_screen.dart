@@ -26,10 +26,11 @@ class _ContactScreenState extends State<ContactScreen> {
   }
 
   _loadUsers() async {
-    final _users = await userRepository.fetchUsers();
-
+    setState(() => loading = true);
+    final users = await userRepository.fetchUsers();
     setState(() {
-      allUsers.addAll(_users);
+      allUsers.addAll(users);
+      loading = false;
     });
   }
 

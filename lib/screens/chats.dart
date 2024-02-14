@@ -29,19 +29,21 @@ class _ChatsScreenState extends State<ChatsScreen> {
   }
 
   _loadChats() async {
+    setState(() => loading = true);
     final chats = await chatRepository.fetchChatsByUserId(logedUserId);
 
     setState(() {
       chatRooms.addAll(chats);
+      loading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Office'),
-        actions: [
+      appBar: appBar(
+        'My Office',
+        actionsWidget: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
@@ -60,13 +62,6 @@ class _ChatsScreenState extends State<ChatsScreen> {
             children: [
               const SizedBox(
                 height: 10,
-              ),
-              Container(
-                padding: const EdgeInsets.only(left: 10),
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: appGrey)),
-                ),
               ),
               if (!loading && chatRooms.isEmpty)
                 const Padding(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_office_chat/repositories/user_repository.dart';
 import 'package:my_office_chat/screens/chats.dart';
-import 'package:models/models.dart'; // Import your User model
+import 'package:models/models.dart';
+import 'package:my_office_chat/widgets/common_widget.dart'; // Import your User model
 
 class LoginScreen extends StatefulWidget {
   final UserRepository userRepository;
@@ -26,9 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+      appBar: appBar('Login'),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
