@@ -77,8 +77,14 @@ class _ChatsScreenState extends State<ChatsScreen> {
                     ChatRoom chatRoom = chatRooms.elementAt(i);
                     final participants = chatRoom.users;
                     for (final participant in participants) {
+                      var username = participant.username;
+                      var participantId = participant.id;
+                      var participantPhone = participant.phone;
+
                       // Skip logged-in user
-                      if (participant.id != logedUserId) {
+                      if (participantId != logedUserId &&
+                          username.isNotEmpty &&
+                          participantPhone.isNotEmpty) {
                         return SizedBox(
                           child: Padding(
                             padding: const EdgeInsets.only(
@@ -96,7 +102,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                               title: Text(participant.username,
                                   style: TextStyle(color: appTextColor)),
                               subtitle: Text(
-                                participant.phone,
+                                participantPhone,
                                 style: TextStyle(color: appTextColor),
                               ),
                             ),
@@ -104,7 +110,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                         );
                       }
                     }
-                    return null;
+                    return const SizedBox(height: 0);
                   },
                 ),
               ))

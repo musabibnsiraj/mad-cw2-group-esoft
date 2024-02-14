@@ -21,4 +21,11 @@ class ChatRepository {
 
     return chatRooms;
   }
+
+  Future<ChatRoom> openChatRoom(String userId, String recipiantId) async {
+    final response = await apiClient.openChat(userId, recipiantId);
+    final chatRoom = ChatRoom.fromJson(response['chat_room']);
+
+    return chatRoom;
+  }
 }

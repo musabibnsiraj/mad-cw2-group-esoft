@@ -1,6 +1,7 @@
 import 'package:my_office_chat/main.dart';
 import 'package:models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:my_office_chat/screens/chat_room_screen.dart';
 import '../../widgets/common_widget.dart';
 import '../constant.dart';
 
@@ -34,6 +35,15 @@ class _ContactScreenState extends State<ContactScreen> {
     });
   }
 
+  _go_to_chat_screen(String contactUserId) async {
+    ChatRoom chatRoom =
+        await chatRepository.openChatRoom(logedUserId, contactUserId);
+
+    Navigator.push(context, MaterialPageRoute(builder: (_) {
+      return ChatRoomScreen(chatRoom: chatRoom);
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,13 +72,20 @@ class _ContactScreenState extends State<ContactScreen> {
                   itemBuilder: (ctx, i) {
                     User2 participant = allUsers.elementAt(i);
                     final userId = participant.id;
-                    if (userId != logedUserId) {
+                    var username = participant.username;
+                    var participantPhone = participant.phone;
+
+                    if (userId != logedUserId &&
+                        username.isNotEmpty &&
+                        participantPhone.isNotEmpty) {
                       return SizedBox(
                         child: Padding(
                           padding: const EdgeInsets.only(
                               top: 8.0, bottom: 8.0, left: 4, right: 4),
                           child: ListTile(
-                            onTap: () {},
+                            onTap: () async {
+                              await _go_to_chat_screen(userId);
+                            },
                             leading: CircleAvatar(
                                 backgroundColor: appGreen,
                                 child: Text(participant.initials() ?? "")),

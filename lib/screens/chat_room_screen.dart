@@ -6,7 +6,6 @@ import 'package:models/models.dart';
 import '../main.dart';
 import '../widgets/avatar.dart';
 import '../widgets/message_bubble.dart';
-import '../env/env.dart';
 
 class ChatRoomScreen extends StatefulWidget {
   const ChatRoomScreen({super.key, required this.chatRoom});
