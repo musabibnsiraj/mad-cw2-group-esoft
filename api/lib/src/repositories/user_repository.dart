@@ -8,7 +8,7 @@ class UserRepository {
   Future<List<Map<String, dynamic>>> fetchUsers() async {
     try {
       final users = await dbClient.from('users').select<PostgrestList>();
-      print(users);
+      // print(users);
       return users;
     } catch (err) {
       throw Exception(err);
