@@ -75,7 +75,8 @@ class MyApp extends StatelessWidget {
             .copyWith(background: appBgColor),
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(userRepository: userRepository),
+      home: const ChatsScreen(),
+      // home: LoginScreen(userRepository: userRepository),
       routes: {
         '/chats': (context) => const ChatsScreen(),
       },

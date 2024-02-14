@@ -24,8 +24,9 @@ Future<Response> _get(
   final chatRepository = context.read<ChatRepository>();
 
   try {
-    final chats = await chatRepository.getChatRoomsWithUsers(userId);
-    return Response.json(body: {'chats': chats});
+    final chatRoom = await chatRepository.getChatRoomIdWithBothParticipants(
+        userId, recipientId);
+    return Response.json(body: {'chat_room': chatRoom});
   } catch (err) {
     return Response.json(
       body: {'error': err.toString()},
