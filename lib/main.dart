@@ -1,5 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:async';
+
 import 'package:my_office_chat/repositories/chat_repository.dart';
 import 'package:my_office_chat/repositories/user_repository.dart';
 import 'package:my_office_chat/screens/chats.dart';
@@ -101,7 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    checkLoggedInUser();
+    Timer(const Duration(seconds: 3), checkLoggedInUser);
   }
 
   Future<void> checkLoggedInUser() async {
@@ -131,9 +133,20 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Spinner(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 150,
+              height: 150,
+              child: Image.asset('Assets/logo.png'),
+            ),
+            const SizedBox(height: 20),
+            const Spinner(),
+          ],
+        ),
       ),
     );
   }

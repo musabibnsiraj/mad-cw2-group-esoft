@@ -6,7 +6,6 @@ version: 1.0.0+1
 environment:
   sdk: '>=3.1.5 <4.0.0'
 
-
 dependencies:
   flutter:
     sdk: flutter
@@ -23,6 +22,7 @@ dependencies:
   supabase: ^2.0.7
   supabase_flutter: ^2.3.3
   shared_preferences: ^2.2.2
+  flutter_launcher_icons: ^0.13.1
   
 dev_dependencies:
   flutter_test:
@@ -31,10 +31,16 @@ dev_dependencies:
   envied_generator: ^0.5.2
   build_runner: ^2.4.6
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "Assets/logo.png"
 
 
 flutter:  
   uses-material-design: true
+  assets:
+    - Assets/logo.png
 
   
   

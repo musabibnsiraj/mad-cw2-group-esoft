@@ -12,7 +12,7 @@ class ApiClient {
     required TokenProvider tokenProvider,
     http.Client? httpClient,
   }) : this._(
-          baseUrl: 'http://$apiBaseUrl',
+          baseUrl: 'http://192.168.143.120:8080',
           tokenProvider: tokenProvider,
           httpClient: httpClient,
         );
